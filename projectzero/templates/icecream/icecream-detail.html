@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+    <script stc="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+  </head>
+  <body>
+    <div class='container'>
+      <h1>Описание</h1>
+      <h3>
+          {{ name }}
+      </h3>
+      <ul>
+          {{ description | safe }}
+      </ul>
+      <img src='{{ avatar }}'>
+      <div class='shadow-lg p-3 mb-5 bg-white rounded'>
+        <a href="/">На главную</a>
+      </div>
+    </div>
+  </body>
+</html>
