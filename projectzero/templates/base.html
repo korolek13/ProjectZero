@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+    <script stc="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script stc="{% static 'popper.js/dist/js/popper.min.js' %}"></script>
+  </head>
+  <body>
+    {% include "nav.html" %}
+    <div class='container'>
+        <h1>
+            {% block header %}
+            {% endblock %}
+        </h1>
+        {% block content %}
+        {% endblock content %}
+    </div>
+   </body>
+</html>
+
+        

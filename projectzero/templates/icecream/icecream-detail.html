@@ -1,25 +1,70 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
-    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
-    <script stc="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
-  </head>
-  <body>
-    <div class='container'>
-      <h1>Описание</h1>
+{% extends "base.html" %}
+{% block header %}Описание{% endblock %}
+{% block content %}
+    <style>
+      .price {
+        font-size:50px;
+        font-weight:bold;
+        padding-left:80px;
+        margin:0;
+      }
+
+      .rating {
+        display:inline-block;
+        font-size:0;
+        padding-left:50px;
+        margin-bottom:15px;
+      }
+
+      .rating span {
+        padding:0;
+        font-size:40px;
+        line-height:1;
+        color:lightgrey
+      }
+
+      .rating > span:before {
+        content:'★';
+      }
+
+      .rating > span.active {
+        color:gold;
+      }
+
+      .desc {
+        list-style-type:none;
+        padding:0;
+      }
+
+      .card-fix {
+        width:15rem;
+      }
+    </style>
       <h3>
           {{ name }}
       </h3>
-      <ul>
-          {{ description | safe }}
-      </ul>
-      <img src='{{ avatar }}'>
+      <div class='d-flex'>
+        {% load thumbnail %}
+        {% thumbnail avatar "300x300" upscale=True as im %}
+        <img src='{{ im.url }}' class='p-2 m-1 img-thumbnail'>
+        {% endthumbnail %}
+        <div class='p-2 m-1 card card-fix'>
+          <p class='price'>{{ price }}₽</p>
+          <div class='rating'>
+            {% for i in gold_rating %}
+              <span class='active'></span>
+            {% endfor %}
+            {% for i in gray_rating %}
+              <span></span>
+            {% endfor %}
+          </div>
+          <ul class='desc'>
+            {{ description | safe }}
+          </ul>
+          <a href='#' class='btn btn-primary'>Купить</a>
+        </div>
+      </div>
       <div class='shadow-lg p-3 mb-5 bg-white rounded'>
         <a href="/">На главную</a>
       </div>
-    </div>
-  </body>
-</html>
+{% endblock %}

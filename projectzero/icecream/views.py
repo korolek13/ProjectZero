@@ -1,33 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import icecream_db
+from .models import Ice_cream, User
+from django.contrib.auth.decorators import login_required
 
 def icecream_list(request):
-    icecreamnames = []
-    for i in range(len(icecream_db)):
-        temp = icecream_db[i]
-        desc = ''
-        for j in range(len(icecream_db[i]['description'])):
-            desc += icecream_db[i]['description'][j] + ' '
-        temp['index'] = i
-        temp['desc'] = desc
-        icecreamnames.append(temp)
-        #icecreamnames += f"<a href = '{i}/'>{icecream_db[i]['name']} </a> <br>"
+    ice_cream_list = Ice_cream.objects.all()
     context = {
-        'icecreams':icecreamnames
+        'icecreams':ice_cream_list
     }
     return render(request, 'icecream/icecream-list.html', context)
 
+@login_required
 def icecream_detail(request, pk):
-    desc = ''
-    for i in range(len(icecream_db[pk]['description'])):
-        desc += f" <li>{icecream_db[pk]['description'][i]}</li>"
-    name = icecream_db[pk]['name']
-    #desc = icecream_db[pk]['description'] 
-    avatar = icecream_db[pk]['avatar']
+    ice_cream = get_object_or_404(Ice_cream, id=pk)
+    name = ice_cream.name
+    desc = ice_cream.description
+    avatar = ice_cream.avatar
+    price = ice_cream.price
+    rating = ice_cream.rating
     context = {
         'name':name,
         'description':desc,
         'avatar':avatar,
+        'price':price,
+        'gold_rating':range(rating),
+        'gray_rating':range(5-rating),
     }
     return render(request, 'icecream/icecream-detail.html', context)
