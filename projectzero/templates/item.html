@@ -1,0 +1,13 @@
+<div class='col-md-5'>
+    <div class='card mb-3 mt-1 shadow-sm'>
+        {% load thumbnail %}
+            {% thumbnail icecream.avatar '300x300' upscale=True as im %}
+            <img class='card-img' src='{{ im.url }}'>
+        {% endthumbnail %}
+        <div class='card-body'>
+            <p class='card-text'>
+                {{ icecream.name }}
+            </p>
+        </div>
+    </div>
+</div>

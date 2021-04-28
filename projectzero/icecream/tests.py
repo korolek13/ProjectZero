@@ -13,6 +13,24 @@ class IcecreamTest(TestCase):
             price = 1,
             rating = 0
         )
+        cls.task = Ice_cream.objects.create(
+            name = 'Манговое',
+            description = 'bla-bla',
+            price = 1,
+            rating = 0
+        )
+        cls.task = Ice_cream.objects.create(
+            name = 'Манговое',
+            description = 'bla-bla',
+            price = 1,
+            rating = 0
+        )
+        cls.task = Ice_cream.objects.create(
+            name = 'Манговое',
+            description = 'bla-bla',
+            price = 1,
+            rating = 0
+        )
         cls.user = User.objects.create(
             username='Testuser',
             password='1234567'
@@ -67,3 +85,15 @@ class IcecreamTest(TestCase):
         self.assertIn('description', response.context)
         self.assertIn('gold_rating', response.context)
         self.assertIn('gray_rating', response.context)
+
+    def test_first_page(self):
+        response = self.authorized_client.get(
+            '/icecream/'
+        )
+        self.assertEqual(len(response.context.get('page').object_list), 3)
+    
+    def test_second_page(self):
+        response = self.authorized_client.get(
+            reverse('icecream-list')+'?page=2'
+        )
+        self.assertEqual(len(response.context.get('page').object_list), 1)

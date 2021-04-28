@@ -62,6 +62,19 @@
             {{ description | safe }}
           </ul>
           <a href='https://docs.google.com/forms/d/e/1FAIpQLSdUnMebh0ypPyTwSPXTCHYgob5aOLbfS8MobGzp8wi7Lbe7TA/viewform?usp=sf_link' class='btn btn-primary'>Купить</a>
+          {% if is_favourite != None %}
+            <li class='list-group-item'>
+                {% if is_favourite %}
+                <a class='btn btn-lg btn-light' href="{% url 'favourite_unfollow' pk %}" role='button'>
+                    Убрать из избранного
+                </a>
+                {% else %}
+                <a class='btn btn-lg btn-primary' href="{% url 'favourite_follow' pk %}" role='button'>
+                    Добавить в избранное
+                </a>
+                {% endif %}
+            </li>
+            {% endif %}
         </div>
       </div>
       <div class='shadow-lg p-3 mb-5 bg-white rounded'>

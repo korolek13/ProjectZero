@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<main role='main' class='container'>
+    <div class='row'>
+        {% include "card-user.html" %}
+            {% for i in page %}
+            {% include "item.html" with icecream=i %}
+            {% endfor %}
+    </div>
+    {% include "paginator.html" with items=page paginator=paginator %}
+</main>
+{% endblock %}
